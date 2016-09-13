@@ -19,14 +19,20 @@ public class Main {
 	list.add(new Point(160, 190));
 
 	EnvConvexe conv = new EnvConvexe(list);
-	ArrayList<Point> test = conv.getConvexe();
+	conv.calculateEnvConvexe();
+	ArrayList<Point> env = conv.getEnvPoints();
+	ArrayList<Point> other_points = conv.getOtherPoints();
 
-	for (Point p : test) {
+	for (Point p : env) {
 	    System.out.println (p.x + ", " + p.y);
 	}
 
-	for (int i = 0; i < list.size(); i++) {
-	    panneau.add(conv.listPoints.get(i));
+	for (int i = 0; i < env.size(); i++) {
+	    panneau.add(new Segment(env.get(i), env.get((i+1)%env.size())));
+	}
+
+	for (int i = 0; i < other_points.size(); i++) {
+	    panneau.add(other_points.get(i));
 	}
 
 	Fenetre fenetre = new Fenetre(panneau);
